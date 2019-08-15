@@ -1,14 +1,11 @@
 <template>
 
-   <v-card
+   <!-- <v-card
     class="mx-auto"
     max-width="350"
-    >
-    <v-container
-      fluid
-      grid-list-md
-      pa-2
-    >
+    > -->
+    <v-container      
+      grid-list-md>
       <v-layout
         wrap
       >
@@ -43,24 +40,19 @@
         </v-flex>
       </v-layout>
     </v-container>
-  </v-card>
+  <!-- </v-card> -->
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import HelloWorld from '../components/HelloWorld.vue';
 
 export default Vue.extend({
   data: () => ({
-      imageLogo: require('@/assets/logo.png'),    
       cards: [
-        { title: 'Encontre Suporte a Guinchos e Socorro', src: 'imageLogo', flex: 12 },
+        { title: 'Encontre Suporte a Guinchos e Socorro', src: require('../assets/logo.png'), flex: 12 },
         { title: 'Melhores Rotas em menor tempo', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
         { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
       ],      
-    }),
-  components: {
-    HelloWorld,
-  },
+    })
 });
 </script>
