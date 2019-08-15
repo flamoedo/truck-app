@@ -58,7 +58,6 @@ export default {
   methods: {
     async validate() {
       if (this.$refs.form.validate()) {
-
       
         var user = new Parse.User();
 
@@ -70,12 +69,7 @@ export default {
         try {
           await user.signUp();
 
-          // Hooray! Let them use the app now.
-          console.log(
-            "success!" +
-              ", User created" +
-              ", User created with success, now you can login"
-          );
+          // Hooray! Let them use the app now.          
           //this.router.navigate(['/login']);
 
           this.text = "success!" +
