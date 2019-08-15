@@ -6,6 +6,13 @@ import vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false;
 
+const Parse = require('parse');
+
+Parse.initialize('myAppId', 'myMasterKey123456');
+
+Parse.serverURL = 'https://rocky-fortress-14504.herokuapp.com/parse';
+
+
 new Vue({
   router,
   store,
