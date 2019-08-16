@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+<v-content class="mx-4">
     <div id="AppTR" style="max-width: 400px; margin: auto;">
       <v-form ref="form" v-model="valid" lazy-validation style="max-width: 400px; margin: auto;">
         <v-text-field v-model="name" :counter="30" label="Name"></v-text-field>
@@ -25,7 +25,7 @@
         <v-btn color="pink" text @click="snackbar = false">Close</v-btn>
       </v-snackbar>
     </div>
-  </v-app>
+    </v-content>
 </template>
 
 <script>

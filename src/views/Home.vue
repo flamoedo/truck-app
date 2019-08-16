@@ -1,9 +1,5 @@
 <template>
 
-   <!-- <v-card
-    class="mx-auto"
-    max-width="350"
-    > -->
     <v-container      
       grid-list-md>
       <v-layout
@@ -28,7 +24,7 @@
             </v-img>
 
             <v-card-actions>
-              <v-spacer></v-spacer>
+              <!-- <v-spacer></v-spacer> -->
 
               <v-btn text>Pesquisar</v-btn>
 
@@ -40,7 +36,6 @@
         </v-flex>
       </v-layout>
     </v-container>
-  <!-- </v-card> -->
 </template>
 
 <script lang="ts">
