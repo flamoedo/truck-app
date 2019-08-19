@@ -15,9 +15,9 @@
           type="password"
         ></v-text-field>
 
-        <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">Enviar</v-btn>
+        <v-btn :disabled="!valid"  rounded color="primary" class="mr-4" @click="validate">Enviar</v-btn>
 
-        <v-btn color="error" class="mr-4" @click="reset">limpar</v-btn>
+        <v-btn rounded color="blue-grey lighten-4"   class="mr-4" @click="reset">limpar</v-btn>
 
       </v-form>
       <v-snackbar v-model="snackbar">
