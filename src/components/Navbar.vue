@@ -1,9 +1,9 @@
 <template>
   <nav>
-    <v-toolbar dark color="primary" :extended="togleextended">
+    <v-toolbar  dark color="blue darken-4" :extended="togleextended">
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title color="white" dark>App Truck BR</v-toolbar-title>
+      <v-toolbar-title dark  color="white">App Truck BR</v-toolbar-title>
 
       <v-spacer></v-spacer>
 

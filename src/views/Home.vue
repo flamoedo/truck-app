@@ -44,9 +44,9 @@ import Vue from 'vue';
 export default Vue.extend({
   data: () => ({
       cards: [
-        { title: 'Encontre Suporte a Guinchos e Socorro', src: require('../assets/logo.png'), flex: 12 },
-        { title: 'Melhores Rotas em menor tempo', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
-        { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
+        { title: 'Encontre Suporte a Guinchos e Socorro', src: require('../assets/truckservices.jpg'), flex: 12 },
+        { title: 'Melhores Rotas em menor tempo', src: require('../assets/truckcap03.jpg'), flex: 6 },
+        { title: 'Encontre, borracharias, Lojas e Serviços', src: require('../assets/truckcap02.jpg'), flex: 6 },
       ],      
     })
 });

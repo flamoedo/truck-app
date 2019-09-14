@@ -4,7 +4,8 @@
       <v-form ref="form" v-model="valid" lazy-validation style="max-width: 400px; margin: auto;">
         <v-card justify-center>
           <v-card-title>
-            <h3>Login</h3>
+            <h3>Esqueceu sua senha?</h3>
+            <h4 class="font-weight-regular">informe, nome, email e a nova senha para alterar!</h4>          
           </v-card-title>
           <v-card-text>
             <v-text-field v-model="name" :counter="30" label="Name"></v-text-field>
@@ -14,7 +15,7 @@
             <v-text-field
               v-model="senha"
               :rules="senhaRules"
-              label="Senha"
+              label="Nova Senha"
               required
               prepend-icon="lock"
               type="password"
@@ -24,9 +25,7 @@
           <v-card-actions>
             <v-layout row>
               <v-flex >
-                <v-btn color="success" class="mr-4" @click="validate">Registrar</v-btn>                
-                <v-btn :disabled="!valid" color="primary" class="mr-4" @click="login">Login</v-btn>
-                <a href="" @click="forgotpassword" >Esqueceu a senha</a>
+                <v-btn color="success" class="mr-4" @click="validate">Alterar</v-btn>               
               </v-flex>
             </v-layout>
           </v-card-actions>
@@ -49,10 +48,16 @@
   </v-content>
 </template> 
 
+
 <script>
+
+
+
 var Parse = require("parse");
 
 export default {
+
+
   data: () => ({
     valid: true,
     name: "",
@@ -118,44 +123,11 @@ export default {
     
         }
       }
-    },    
-    async login() {
-
-        try {
-        
-          const user = await Parse.User.logIn(this.name,this.senha);
-          this.valid = true;
-          
-          this.validLogin = "success";
-
-          this.text =
-            "Successo!" +
-            ", Login com sucesso " +
-            ", agora você pode logar";
-
-          this.snackbar = true;
-
-         } catch (error) {
-       
-          this.validLogin = "error";
-           if (error.code == 200){
-            this.text =
-            "Usuário ou senha inválidos : " + error.code + ", " + "Informar, nome, email e senha!";
-         
-           }
-
-          this.snackbar = true;
-        }
-
-
-    },
+    },        
     reset() {
       this.$refs.form.reset();
       this.validLogin = "";
-    },
-    forgotpassword() {
-      this.$router.push("/forgotpassword");
-    }  
+    }
   }
 };
 </script>
