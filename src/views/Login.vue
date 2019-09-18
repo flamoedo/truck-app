@@ -1,49 +1,43 @@
 <template>
-  <v-content class="mx-4">
+  <v-content class="mx-4 mt-4">
     <div id="AppTR" style="max-width: 400px; margin: auto;">
       <v-form ref="form" v-model="valid" lazy-validation style="max-width: 400px; margin: auto;">
-        <v-card justify-center>
-          <v-card-title>
-            <h3>Login</h3>
-          </v-card-title>
-          <v-card-text>
-            <v-text-field v-model="name" :counter="30" label="Name"></v-text-field>
+        <h3>Login</h3>
+        <v-text-field v-model="name" :counter="30" label="Name"></v-text-field>
 
-            <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
+        <!-- <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field> -->
 
-            <v-text-field
-              v-model="senha"
-              :rules="senhaRules"
-              label="Senha"
-              required
-              prepend-icon="lock"
-              type="password"
-            ></v-text-field>
-          </v-card-text>
+        <v-text-field
+          v-model="senha"
+          :rules="senhaRules"
+          label="Senha"
+          required
+          prepend-icon="lock"
+          type="password"
+        ></v-text-field>
+        <v-row align="center" class="mx-0">
+          <v-btn :disabled="!valid" color="primary" class="mr-4" @click="login">Entrar</v-btn>
 
-          <v-card-actions>
-            <v-layout row>
-              <v-flex >
-                <v-btn color="success" class="mr-4" @click="validate">Registrar</v-btn>                
-                <v-btn :disabled="!valid" color="primary" class="mr-4" @click="login">Login</v-btn>
-                <a href="" @click="forgotpassword" >Esqueceu a senha</a>
-              </v-flex>
-            </v-layout>
-          </v-card-actions>
-        </v-card>
+          <v-btn
+            text
+            :disabled="!valid"
+            color="primary"
+            class="mr-4"
+            @click="forgotpassword"
+          >Lembrar</v-btn>
+        </v-row>
+        <v-row align="center" class="mx-0 mt-4">
+          <v-btn color="success" class="mr-4" @click="register">Registrar</v-btn>
+        </v-row>
 
-        <p/>
- 
-          <div v-if="validLogin == 'success'">
-            <v-alert  type="success">
-             {{ text }}
-            </v-alert>
-          </div>
-            <div v-if="validLogin == 'error'">
-            <v-alert  type="error">
-             {{ text }}
-            </v-alert>
-          </div>
+        <p />
+
+        <div v-if="validLogin == 'success'">
+          <v-alert type="success">{{ text }}</v-alert>
+        </div>
+        <div v-if="validLogin == 'error'">
+          <v-alert type="error">{{ text }}</v-alert>
+        </div>
       </v-form>
     </div>
   </v-content>
@@ -60,11 +54,11 @@ export default {
       v => !!v || "Name é obrigatório",
       v => (v && v.length > 10) || "Nome deve ter até 10 caracteres"
     ],
-    email: "",
-    emailRules: [
-      v => !!v || "E-mail é obrigatório",
-      v => /.+@.+\..+/.test(v) || "E-mail informado não válido"
-    ],
+    // email: "",
+    // emailRules: [
+    //   v => !!v || "E-mail é obrigatório",
+    //   v => /.+@.+\..+/.test(v) || "E-mail informado não válido"
+    // ],
     senha: "",
     senhaRules: [
       v => !!v || "senha obrigatória",
@@ -73,81 +67,29 @@ export default {
 
     checkbox: false,
     text: "",
-    snackbar: false,
     StatuCode: "",
-    validLogin: "",
+    validLogin: ""
   }),
 
   methods: {
-    async validate() {
-      if (this.$refs.form.validate()) {
-        var user = new Parse.User();
-
-        var validLogin = "";
-
-        user.set("username", this.name);
-        user.set("password", this.senha);
-        user.set("email", this.email);
-
-        // other fields can be set just like with Parse.Object
-        try {
-          await user.signUp();
-
-          // Hooray! Let them use the app now.
-          //this.router.navigate(['/login']);
-
-          this.validLogin = "success";
-          this.valid = true;
-
-          this.text =
-            "Successo!" +
-            ", Usuário criado com sucesso " +
-            ", agora você pode logar";
-
-          this.snackbar = true;
-        } catch (error) {
-          // Show the error message somewhere and let the user try again.
-          this.validLogin = "error";
-          if (error.code == -1){
-            // error code = -1 Cannot sign up user with an empty name.
-            this.text =
-            "Erro ao criar seu usuário : " + error.code + ", " +  "Informar, nome, email e senha!";
-            this.snackbar = true;
-          }
-
-    
-        }
-      }
-    },    
+    register() {
+      this.$router.push("/register");
+    },
     async login() {
 
-        try {
+      try {
         
-          const user = await Parse.User.logIn(this.name,this.senha);
-          this.valid = true;
-          
-          this.validLogin = "success";
+        const loggedUser = await Parse.User.logIn(this.name, this.senha);
 
-          this.text =
-            "Successo!" +
-            ", Login com sucesso " +
-            ", agora você pode logar";
+        this.validLogin = "success";
 
-          this.snackbar = true;
+        this.text =
+          "Successo!" + ", Login com sucesso " + ", agora você pode logar";
 
-         } catch (error) {
-       
-          this.validLogin = "error";
-           if (error.code == 200){
-            this.text =
-            "Usuário ou senha inválidos : " + error.code + ", " + "Informar, nome, email e senha!";
-         
-           }
-
-          this.snackbar = true;
-        }
-
-
+      } catch (error) {
+        this.validLogin = "error";
+        this.text = error.code + " - " + error.message;
+      }
     },
     reset() {
       this.$refs.form.reset();
@@ -155,7 +97,7 @@ export default {
     },
     forgotpassword() {
       this.$router.push("/forgotpassword");
-    }  
+    }
   }
 };
 </script>
