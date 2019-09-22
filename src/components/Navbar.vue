@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-toolbar  dark color="blue darken-4" :extended="togleextended">
+    <v-toolbar  dark color="blue darken-4">
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
       <v-toolbar-title dark  color="white">App Truck BR</v-toolbar-title>

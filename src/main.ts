@@ -8,9 +8,13 @@ Vue.config.productionTip = false;
 
 const Parse = require('parse');
 
-Parse.initialize('myAppId', 'myMasterKey123456');
+// Parse.initialize('myAppId', 'myMasterKey123456');
 
-Parse.serverURL = 'https://rocky-fortress-14504.herokuapp.com/parse';
+// Parse.serverURL = 'https://rocky-fortress-14504.herokuapp.com/parse';
+
+Parse.initialize('myAppId', 'myMasterKey');
+
+Parse.serverURL = 'https://truck-app-database.herokuapp.com/parse';
 
 
 new Vue({

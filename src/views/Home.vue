@@ -26,7 +26,7 @@
             <v-card-actions>
               <!-- <v-spacer></v-spacer> -->
 
-              <v-btn text>Pesquisar</v-btn>
+              <v-btn text @click="pesquisar(card.link)">Pesquisar</v-btn>
 
               <v-btn icon>
                 <v-icon>share</v-icon>
@@ -44,10 +44,16 @@ import Vue from 'vue';
 export default Vue.extend({
   data: () => ({
       cards: [
-        { title: 'Encontre Suporte a Guinchos e Socorro', src: require('../assets/truckservices.jpg'), flex: 12 },
-        { title: 'Melhores Rotas em menor tempo', src: require('../assets/truckcap03.jpg'), flex: 6 },
-        { title: 'Encontre, borracharias, Lojas e Serviços', src: require('../assets/truckcap02.jpg'), flex: 6 },
+        { title: 'Encontre Suporte a Guinchos e Socorro', src: require('../assets/truckservices.jpg'), link:'melhores guinchos da região', flex: 12 },
+        { title: 'Melhores Rotas em menor tempo', src: require('../assets/truckcap03.jpg'), link:'rotas', flex: 6 },
+        { title: 'Encontre, borracharias, Lojas e Serviços', src: require('../assets/truckcap02.jpg'), link:'servicos', flex: 6 },
       ],      
-    })
+    }),
+    methods:{
+      pesquisar(link){
+        // this.$router.push("/list/"+link);
+        this.$router.push(`/list/${link}`)
+      }
+    }
 });
 </script>
