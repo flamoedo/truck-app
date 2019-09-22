@@ -15,18 +15,21 @@
 
         <v-col v-for="post in posts" :key="post.cacheId" class="pa-1">
           <v-card>
-            <v-list-item three-line>
-              <v-list-item-content class="align-self-start">
-                <v-list-item-title class="headline mb-2" v-text="post.title"></v-list-item-title>
-                <v-list-item-subtitle v-text="post.snippet"></v-list-item-subtitle>
-              </v-list-item-content>
+              <v-list-item three-line>
+                <v-list-item-content class="align-self-start">
+                  <v-list-item-title class="headline mb-2" v-text="post.title"></v-list-item-title>
+                  <v-list-item-subtitle v-text="post.snippet"></v-list-item-subtitle>
+                </v-list-item-content>
 
-              <v-list-item-avatar v-if="post.pagemap && post.pagemap.cse_image" size="125" tile>
-                <div v-for="img in post.pagemap.cse_image" :key="img.src">
-                  <v-img height="120px" width="120px" :src="img.src"></v-img>
-                </div>
-              </v-list-item-avatar>
-            </v-list-item>
+                <v-list-item-avatar v-if="post.pagemap && post.pagemap.cse_image" size="125" tile>
+                  <div v-for="img in post.pagemap.cse_image" :key="img.src">
+                    <v-img height="120px" width="120px" :src="img.src"></v-img>
+                  </div>
+                </v-list-item-avatar>
+              </v-list-item>
+              <v-card-actions>
+                <v-btn :href="post.link" text>Visitar Página</v-btn>
+              </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
@@ -69,6 +72,7 @@ export default {
           if (!data.error) {
             this.posts = [];
             this.posts.push(...data.items);
+            console.log(this.posts);
           } else {
             this.error = data.error;
           }
