@@ -1,5 +1,5 @@
 <template>
-  <v-content class="mx-4 mt-4">
+  <v-content class="mx-4">
     <div id="AppTR" style="max-width: 400px; margin: auto;">
       <v-form ref="form" v-model="valid" lazy-validation style="max-width: 400px; margin: auto;">
         <h3>Login</h3>
