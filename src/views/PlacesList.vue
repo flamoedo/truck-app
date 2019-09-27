@@ -28,7 +28,7 @@
               </v-list-item-avatar>
             </v-list-item>
             <v-card-actions>
-              <v-btn :href="post.link" text>Visitar Página</v-btn>
+              <v-btn @click="details(post.place_id, post.photos)" text>Ver detalhes</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -52,7 +52,7 @@ export default {
   }),
   mounted() {
     this.pagina = 1;
-    this.getParameters();    
+    this.getParameters();
   },
 
   created() {
@@ -73,34 +73,38 @@ export default {
     getData(busca, next_page, api_key) {
       // Obtem os dados da API
 
-      navigator.geolocation.getCurrentPosition(function(location) {
-        // console.log(location.coords.latitude);
-        // console.log(location.coords.longitude);
-        // console.log(location.coords.accuracy);
+      navigator.geolocation.getCurrentPosition(
+        function(location) {
+          // console.log(location.coords.latitude);
+          // console.log(location.coords.longitude);
+          // console.log(location.coords.accuracy);
 
-        var url_busca = `https://cors-anywhere.herokuapp.com/https://`+
-        `maps.googleapis.com/maps/api/place/nearbysearch/json?`+
-        `location=${location.coords.latitude},${location.coords.longitude}`+
-        `&radius=15000&keyword=${busca}&key=${api_key}&page_token=${next_page}`;
+          var url_busca =
+            `https://cors-anywhere.herokuapp.com/https://` +
+            `maps.googleapis.com/maps/api/place/nearbysearch/json?` +
+            `location=${location.coords.latitude},${location.coords.longitude}` +
+            `&radius=15000&type=establishment&keyword=${busca}&key=${api_key}`;
 
+          if (next_page) {
+            url_busca = `${url_busca}&pagetoken=${next_page}`;
+          }
 
-        fetch( url_busca,
-          { mode: "cors" }
-        )
-          .then(response => response.json())
-          .then(data => {
-            console.log(data);
-            if (!data.error) {
-              this.posts = [];
-              this.posts.push(...data.results);
-              this.next_page = data.next_page_token;
-              console.log(this.posts);
-            } else {
+          fetch(url_busca, { mode: "cors" })
+            .then(response => response.json())
+            .then(data => {
               console.log(data);
-              this.error = data.error;
-            }
-          });
-      }.bind(this));
+              if (!data.error) {
+                this.posts = [];
+                this.posts.push(...data.results);
+                this.next_page = data.next_page_token;
+                console.log(this.posts);
+              } else {
+                console.log(data);
+                this.error = data.error;
+              }
+            });
+        }.bind(this)
+      );
     },
 
     getParameters() {
@@ -121,6 +125,17 @@ export default {
           }
         }.bind(this)
       );
+    },
+
+    details(placeid, photos){
+
+
+      photos.forEach(element => {
+        this.photo = element.photo_reference;
+        return false;
+      });
+
+      this.$router.push(`/detail/${placeid}/${this.photo}/${this.google_api_key}`)
     }
   }
 };
