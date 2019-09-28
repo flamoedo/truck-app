@@ -3,7 +3,7 @@
     <div v-if="posts.length > 0">
       <v-row>
         <v-col class="pa-1">
-          <v-card color="#1F7087" dark>
+          <v-card color="blue darken-2" dark>
             <v-card-text class="white--text">
               <div class="headline">{{search}}</div>
             </v-card-text>
@@ -46,9 +46,15 @@
                 </div>
               </v-list-item-avatar>
             </v-list-item>
+            <v-list-item>
+             <v-card-title v-if="post.opening_hours">Aberto</v-card-title> 
+             <v-card-text v-text="post.vicinity"></v-card-text> 
+            </v-list-item> 
             <v-card-actions>
               <v-btn @click="details(post.place_id, post.photos)" text>Ver detalhes</v-btn>
             </v-card-actions>
+           
+            
           </v-card>
         </v-col>
       </v-row>
