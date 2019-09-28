@@ -37,7 +37,7 @@
         text
       >Página Web</v-btn>
       <v-spacer></v-spacer>
-      <v-btn @click="voltar" color="red" text>voltar</v-btn>
+      <v-btn @click="voltar" color="red" text>voltar </v-btn>
     </v-card-actions>
 
 

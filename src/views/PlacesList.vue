@@ -86,7 +86,7 @@ export default {
       // this.pagina = this.pagina + 10;
       this.getData(this.search, this.next_page, this.google_api_key);
     },
-
+  
     getPhoto(photo_reference) {
       return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo_reference}&key=${this.google_api_key}`;
     },

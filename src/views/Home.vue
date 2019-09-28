@@ -48,7 +48,7 @@ export default Vue.extend({
         { title: 'Melhores Rotas em menor tempo', src: require('../assets/truckcap03.jpg'), link:'rotas', flex: 6 },
         { title: 'Encontre, borracharias, Auto Peças e Postos Gasolinas', src: require('../assets/truckcap02.jpg'), link:'Borracharia Caminhões', flex: 6 },
       ],      
-    }),
+    }), 
     methods:{
       pesquisar(link){
         // this.$router.push("/list/"+link);
