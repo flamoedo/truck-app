@@ -20,7 +20,7 @@
                 <v-list-item-title class="headline mb-2" v-text="post.name"></v-list-item-title>
                 <v-list-item-subtitle v-text="post.name"></v-list-item-subtitle>
               </v-list-item-content>
-
+      
               <v-list-item-avatar size="125" tile>
                 <div v-for="img in post.photos" :key="img.place_id">
                   <v-img height="120px" width="120px" v-bind:src="getPhoto(img.photo_reference)"></v-img>
