@@ -44,9 +44,9 @@ import Vue from 'vue';
 export default Vue.extend({
   data: () => ({
       cards: [
-        { title: 'Encontre Suporte a Guinchos e Socorro', src: require('../assets/truckservices.jpg'), link:'guincho', flex: 12 },
+        { title: 'Encontre Suporte a Guinchos e Socorro', src: require('../assets/truckservices.jpg'), link:'Guincho caminhões', flex: 12 },
         { title: 'Melhores Rotas em menor tempo', src: require('../assets/truckcap03.jpg'), link:'rotas', flex: 6 },
-        { title: 'Encontre, borracharias, Lojas e Serviços', src: require('../assets/truckcap02.jpg'), link:'borracharia', flex: 6 },
+        { title: 'Encontre, borracharias, Auto Peças e Postos Gasolinas', src: require('../assets/truckcap02.jpg'), link:'Borracharia Caminhões', flex: 6 },
       ],      
     }),
     methods:{

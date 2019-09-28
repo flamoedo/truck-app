@@ -3,7 +3,7 @@
     <div v-if="posts.length > 0">
       <v-row>
         <v-col class="pa-1">
-          <v-card color="#1F7087" dark>
+          <v-card color="blue darken-1" dark>
             <v-card-text class="white--text">
               <div class="headline">{{search}}</div>
             </v-card-text>
@@ -171,7 +171,7 @@ export default {
       this.$router.push(
         `/detail/${placeid}/${this.photo}/${this.google_api_key}`
       );
-    }
+    },   
   }
 };
 </script>

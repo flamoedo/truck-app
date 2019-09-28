@@ -36,7 +36,11 @@
         color="deep-purple accent-4"
         text
       >Página Web</v-btn>
+      <v-spacer></v-spacer>
+      <v-btn @click="voltar" color="red" text>voltar</v-btn>
     </v-card-actions>
+
+
   </v-card>
 </template>
 <script>
@@ -92,6 +96,9 @@ export default {
             this.error = data.error;
           }
         });
+    },
+     voltar(){
+      //this.$router.push("/list");
     }
   }
 };
