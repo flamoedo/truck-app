@@ -3,7 +3,7 @@
     <div v-if="posts.length > 0">
       <v-row>
         <v-col class="pa-1">
-          <v-card color="blue darken-2" dark>
+          <v-card color="#1F7087" dark>
             <v-card-text class="white--text">
               <div class="headline">{{search}}</div>
             </v-card-text>
@@ -19,6 +19,25 @@
               <v-list-item-content class="align-self-start">
                 <v-list-item-title class="headline mb-2" v-text="post.name"></v-list-item-title>
                 <v-list-item-subtitle v-text="post.name"></v-list-item-subtitle>
+                <v-list-item-subtitle v-if="post.opening_hours">Aberto agora</v-list-item-subtitle>
+                <v-list-item-subtitle v-if="!post.opening_hours">Fechado</v-list-item-subtitle>
+                <v-list-item-subtitle>
+                  {{getDistance(post.geometry.location.lat,
+                  post.geometry.location.lng)}}
+                </v-list-item-subtitle>
+                <v-row align="left" class="pl-3">
+                  <v-rating
+                    :value="post.rating"
+                    color="amber"
+                    half-increments
+                    dense
+                    size="14"
+                    readonly
+                  ></v-rating>
+
+                  <div class="grey--text ml-4">{{post.rating}}</div>
+                </v-row>
+                <v-list-item-subtitle v-text="post.vicinity"></v-list-item-subtitle>
               </v-list-item-content>
       
               <v-list-item-avatar size="125" tile>
@@ -27,15 +46,9 @@
                 </div>
               </v-list-item-avatar>
             </v-list-item>
-            <v-list-item>
-             <v-card-title v-if="post.opening_hours">Aberto</v-card-title> 
-             <v-card-text v-text="post.vicinity"></v-card-text> 
-            </v-list-item> 
             <v-card-actions>
               <v-btn @click="details(post.place_id, post.photos)" text>Ver detalhes</v-btn>
             </v-card-actions>
-           
-            
           </v-card>
         </v-col>
       </v-row>
@@ -50,6 +63,8 @@ var Parse = require("parse");
 var map;
 var service;
 var infowindow;
+
+var mylib = require("@/lib/myLib");
 
 export default {
   data: () => ({
@@ -76,6 +91,18 @@ export default {
       return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo_reference}&key=${this.google_api_key}`;
     },
 
+    getDistance(latitude, longitude) {
+      var calcdistance = mylib.distance(
+        this.my_location.coords.latitude,
+        this.my_location.coords.longitude,
+        latitude,
+        longitude,
+        "K"
+      );
+      console.log(calcdistance);
+      return Math.round(calcdistance*100)/100 + ' km';
+    },
+
     getData(busca, next_page, api_key) {
       // Obtem os dados da API
 
@@ -84,6 +111,8 @@ export default {
           // console.log(location.coords.latitude);
           // console.log(location.coords.longitude);
           // console.log(location.coords.accuracy);
+
+          this.my_location = location;
 
           var url_busca =
             `https://cors-anywhere.herokuapp.com/https://` +
@@ -133,15 +162,15 @@ export default {
       );
     },
 
-    details(placeid, photos){
-
-
+    details(placeid, photos) {
       photos.forEach(element => {
         this.photo = element.photo_reference;
         return false;
       });
 
-      this.$router.push(`/detail/${placeid}/${this.photo}/${this.google_api_key}`)
+      this.$router.push(
+        `/detail/${placeid}/${this.photo}/${this.google_api_key}`
+      );
     }
   }
 };
