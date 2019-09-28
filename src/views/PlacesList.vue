@@ -12,7 +12,7 @@
             </v-card-actions>
           </v-card>
         </v-col>
-
+ 
         <v-col v-for="post in posts" :key="post.id" class="pa-1">
           <v-card>
             <v-list-item three-line>

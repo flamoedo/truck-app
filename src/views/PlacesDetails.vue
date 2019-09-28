@@ -27,7 +27,7 @@
         <v-chip>9:00PM</v-chip>
       </v-chip-group>
     </v-card-text>-->
-
+ 
     <v-card-actions>
       <v-btn :href="this.posts.url" color="deep-purple accent-4" text>Mapa</v-btn>
       <v-btn
