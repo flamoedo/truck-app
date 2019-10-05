@@ -13,7 +13,7 @@
 <style module>
 .styles {
   border: 1px solid red;
-}
+} 
 </style>
 
 <style scoped>

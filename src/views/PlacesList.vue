@@ -1,24 +1,16 @@
 <template>
-  <v-container>
-    <div v-if="search == 'Borracharia Caminhões'">
-      <v-col class="d-flex" cols="12" sm="6">
-        <select
-          class="form-control"
-          persistent-hint
-          return-object
-          single-line
-          dense
-          @change="onChange($event)"
-        >
-          <option value selected disabled>Selecione uma opção..</option>
-          <option v-for="item in items" :value="item.key" :key="item.key">{{ item.desc }}</option>
-        </select>
-      </v-col>
-    </div>
-
+  <v-container fluid class="pt-0 ma-0">
+    <v-overflow-btn
+      v-if="search != 'Guincho caminhões'"
+      class="mobile pa-0 ma-0"
+      :items="items"
+      label="Escolha uma opção"
+      target="#dropdown-example"
+      @change="onChange($event)"
+    ></v-overflow-btn>
     <div v-if="posts.length > 0">
       <v-row>
-        <v-col class="pa-1">
+        <v-col class="pa-1" lg="12">
           <v-card color="blue darken-1" dark>
             <v-card-text class="white--text">
               <div class="headline">{{search}}</div>
@@ -27,11 +19,11 @@
               <v-btn @click="proximo" text>Próximo</v-btn>
               <v-spacer></v-spacer>
               <v-btn @click="voltar" text>Voltar</v-btn>
-            </v-card-actions>  
+            </v-card-actions>
           </v-card>
         </v-col>
 
-        <v-col v-for="post in posts" :key="post.id" class="pa-1">
+        <v-col v-for="post in posts" :key="post.id" class="pa-1" lg="12">
           <v-card>
             <v-list-item three-line>
               <v-list-item-content class="align-self-start">
@@ -76,6 +68,7 @@
     </div>
   </v-container>
 </template>
+
 <script>
 var Parse = require("parse");
 var map;
@@ -92,9 +85,9 @@ export default {
     services: ["Borracharias", "Auto Peças", "Postos Gasolinas", "Mecânicas"],
     select: { key: "1", desc: "Borracharias de Caminhões" },
     items: [
-      { key: "1", desc: "Borracharias de Caminhões" },
-      { key: "2", desc: "Auto Peças Caminhões" },
-      { key: "3", desc: "Postos de Gasolina" }
+      { text: "Borracharias de Caminhões" },
+      { text: "Auto Peças Caminhões" },
+      { text: "Postos de Gasolina" }
     ]
   }),
   mounted() {
@@ -117,55 +110,16 @@ export default {
       return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo_reference}&key=${this.google_api_key}`;
     },
     onChange: function(event) {
-      console.log(event.target.value);
-      //this.search = event.target.value;
-      if (event.target.value == 1) {
-        this.search = "Borracharias de Caminhões";
-        this.$router.push(`/list/${this.search}`);
-        this.proximo();
-        //this.$router.reload();
-        this.$forceUpdate();
-        location.reload();
-        console.log(this.search);
-      }
-
-      if (event.target.value == 2) {
-        this.search = "Auto Peças de Caminhões";
-        this.$router.push(`/list/${this.search}`);
-        this.proximo();
-        //this.$router.reload();
-        this.$forceUpdate();
-        location.reload();
-        console.log(this.search);
-      }
-
-      if (event.target.value == 3) {
-        this.search = "Postos de Gasolina";
-        this.$router.push(`/list/${this.search}`);
-        this.proximo();
-        //this.$router.reload();
-        this.$forceUpdate();
-        location.reload();
-
-        console.log(this.search);
-      }
-
-      // Não pode ser o proximo tem quer uma nova busca
-      //this.proximo();
-
-      this.$route.params.search = this.search;
-      this.$router.reload();
-
-      console.log(
-        "teste passou change" + event.target.value + this.$route.params.search
-      );
+      console.log(event);
+      this.search = event;
+      this.getData(this.search, false, this.google_api_key);
     },
-  
-    voltar(){
-        this.search = "Borracharia Caminhões";
-        this.$router.push(`/list/${this.search}`);
-        this.proximo();
-        this.$router.reload();
+
+    voltar() {
+      this.search = "Borracharia Caminhões";
+      this.$router.push(`/list/${this.search}`);
+      this.proximo();
+      this.$router.reload();
     },
 
     getDistance(latitude, longitude) {
