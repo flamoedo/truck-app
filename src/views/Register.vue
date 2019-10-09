@@ -1,53 +1,71 @@
 <template>
-  <v-content class="mx-4">
-    <div id="AppTR" style="max-width: 400px; margin: auto;">
-      <v-form ref="form" v-model="valid" lazy-validation style="max-width: 400px; margin: auto;">
-        <h3>Registrar</h3>
-        <v-text-field v-model="name" :counter="30" :rules="nameRules" label="Nome de usuário" required></v-text-field>
+  <v-container>
+    <v-layout justify-center align-center>
+      <v-flex>
+        <v-content class="mx-4">
+          <div id="AppTR" style="max-width: 400px; margin: auto;">
+            <v-form
+              ref="form"
+              v-model="valid"
+              lazy-validation
+              style="max-width: 400px; margin: auto;"
+            >
+              <h2>Registrar</h2>
+              <v-text-field
+                v-model="name"
+                :counter="30"
+                :rules="nameRules"
+                prepend-icon="mdi-account-circle"
+                label="Nome de usuário"
+                required
+              ></v-text-field>
 
-        <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
+              <v-text-field
+                v-model="email"
+                prepend-icon="mail"
+                :rules="emailRules"
+                label="E-mail"
+                required
+              ></v-text-field>
 
-        <v-text-field
-          v-model="senha"
-          :rules="senhaRules"
-          label="Senha"
-          required
-          prepend-icon="lock"
-          type="password"
-        ></v-text-field>
-        <v-row align="center" class="mx-0">
-          <v-btn color="success" class="mr-4" @click="validate">Registrar</v-btn>
-          <v-btn color="primary" class="mr-4" @click="reset">Limpar</v-btn>
+              <v-text-field
+                v-model="senha"
+                :rules="senhaRules"
+                label="Senha"
+                required
+                prepend-icon="lock"
+                type="password"
+              ></v-text-field>
 
-        </v-row>
-        <v-row align="center" class="mx-0 mt-4">
-          <h4>Usuário Registrado:</h4>
+              <v-row align="center" class="mx-0">
+                <v-btn color="success" class="mr-4" @click="validate">Registrar</v-btn>
+                <v-spacer />
+                <v-btn color="primary" class="mr-4" @click="reset">Limpar</v-btn>
+              </v-row>
 
-        </v-row>
-        <v-row align="center" class="mx-0">
+               <p />
 
-          <v-btn color="primary" class="mr-4" @click="login">Entrar</v-btn>
+              <v-card-actions class="justify-center">                      
+                  <v-btn 
+                  large
+                  rounded
+                  align="align-center"
+                  color="primary"   class="ma-2" @click="login">Entrar</v-btn>         
+              </v-card-actions>             
+              <p />
 
-          <!-- <v-btn
-            text
-            :disabled="!valid"
-            color="primary"
-            class="mr-4"
-            @click="forgotpassword"
-          >Lembrar</v-btn> -->
-        </v-row>
-
-        <p />
-
-        <div v-if="validLogin == 'success'">
-          <v-alert type="success">{{ text }}</v-alert>
-        </div>
-        <div v-if="validLogin == 'error'">
-          <v-alert type="error">{{ text }}</v-alert>
-        </div>
-      </v-form>
-    </div>
-  </v-content>
+              <div v-if="validLogin == 'success'">
+                <v-alert type="success">{{ text }}</v-alert>
+              </div>
+              <div v-if="validLogin == 'error'">
+                <v-alert type="error">{{ text }}</v-alert>
+              </div>
+            </v-form>
+          </div>
+        </v-content>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template> 
 
 <script>
@@ -79,7 +97,7 @@ export default {
     validLogin: ""
   }),
 
-  methods: {    
+  methods: {
     async validate() {
       if (this.$refs.form.validate()) {
         var user = new Parse.User();
@@ -111,8 +129,7 @@ export default {
           this.validLogin = "error";
           if (error.code == -1) {
             // error code = -1 Cannot sign up user with an empty name.
-            this.text = error.code +
-              ", " + error.message;
+            this.text = error.code + ", " + error.message;
             this.snackbar = true;
           }
         }
@@ -125,7 +142,7 @@ export default {
     forgotpassword() {
       this.$router.push("/forgotpassword");
     },
-    login(){
+    login() {
       this.$router.push("/login");
     }
   }
